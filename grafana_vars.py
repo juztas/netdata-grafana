@@ -22,6 +22,14 @@ Email 			: justas.balcas (at) cern.ch
 @Copyright		: Copyright (C) 2016 Justas Balcas
 Date			: 2017/09/26
 """
+
+# TODO. Allow this to come from configuration, so that user can specify it's own.
+MAPPINGS = {'AREA': {'fill': 6, 'stack': False, 'steppedLine': False},
+            'LINE': {'fill': 1, 'stack': False, 'steppedLine': False},
+            'STACKED': {'fill': 5, 'stack': True, 'steppedLine': True}}
+
+
+
 GRAFANA_DASHBOARD = {
     "annotations": {"list": []},
     "description": "#####",
@@ -33,6 +41,7 @@ GRAFANA_DASHBOARD = {
     "id": 1,
     "tags": [],
     "links": [],
+    "templating": {},
     "refresh": False,
     "rows": []}
 
@@ -84,7 +93,7 @@ GRAFANA_PANEL = {
         {"format": "########", "label": "Label #####", "logBase": 1, "max": None, "min": None, "show": True},
         {"format": "short", "label": None, "logBase": 1, "max": None, "min": None, "show": True}]}
 
-GRAFANA_TARGET = {
+GRAFANA_TARGET_GRAPHITE = {
     "alias": "######",
     "dsType": "influxdb",
     "groupBy": [
@@ -101,6 +110,25 @@ GRAFANA_TARGET = {
         {"params": [], "type": "mean"}]],
     "tags": []}
 
+GRAFANA_TARGET_OPENTSDB = {
+    "aggregator": "sum",
+    "alias": "",
+    "currentTagKey": "",
+    "currentTagValue": "",
+    "downsampleAggregator": "avg",
+    "downsampleFillPolicy": "none",
+    "downsampleInterval": "",
+    "metric": "######",
+    "refId": "#",
+    "filters": []}
+
+GRAFANA_OPENTSDB_FILTER = {
+    "filter": "#####",
+    "groupBy": False,
+    "tagk": "####",
+    "type": "regexp"
+    }
+
 GRAFANA_LINKS = {
     "icon": "external link",
     "tags": [],
@@ -110,6 +138,28 @@ GRAFANA_LINKS = {
     "type": "link",
     "url": "#####"}
 
+GRAFANA_TEMPLATE = {
+    "allValue": None,
+    "hide": 0,
+    "includeAll": True,
+    "label": None,
+    "multi": True,
+    "name": "#####",
+    "query": "*",
+    "type": "custom",
+    "options": [{
+        "selected": True,
+        "text": "All",
+        "value": "$__all"}],
+    "current": {
+        "tags": [],
+        "text": "All",
+        "value": ["$__all"]}}
+
+GRAFANA_TEMPLATE_OPTION = {
+    "selected": False,
+    "text": "#######",
+    "value": "#######"}
 
 FIELD_DESC = {
     'system': {'title': 'System Overview',
@@ -213,7 +263,9 @@ FIELD_DESC = {
     'go_expvar': {'title': 'Go - expvars',
                   'info': 'Statistics about running Go applications exposed by the <a href="https://golang.org/pkg/expvar/" target="_blank">expvar package</a>.'},
     'chrony': {'title': 'System Clock performance',
-               'info': 'chronyd parameters about the system\'s clock performance.'}
+               'info': 'chronyd parameters about the system\'s clock performance.'},
+    'nv': {'title': 'GPU Nvidia monitoring',
+           'info': None}
 }
 
 # TODO sub components descriptions. I would love to if all of this in netdata is in just simple json format.

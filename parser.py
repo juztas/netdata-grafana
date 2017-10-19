@@ -25,206 +25,40 @@ Date			: 2017/09/26
 import os
 import json
 import tempfile
-import copy
 import urllib2
-import ConfigParser
-from grafana_vars import GRAFANA_DASHBOARD, GRAFANA_PANEL, GRAFANA_ROW
-from grafana_vars import GRAFANA_TARGET, GRAFANA_LINKS, FIELD_DESC
+from common import getConfig
+from common import getDataFromUrl
+from graphite import start as graphiteDashboard
+from opentsdb import start as opentsdbDashboard
 
-# TODO. Allow this to come from configuration, so that user can specify it's own.
-MAPPINGS = {'AREA': {'fill': 6, 'stack': False, 'steppedLine': False},
-            'LINE': {'fill': 1, 'stack': False, 'steppedLine': False},
-            'STACKED': {'fill': 5, 'stack': True, 'steppedLine': True}}
-
-def getConfig(locations):
-    """
-    Get parsed configuration object.
-    Input: list(str,str,str): ['filename1', 'filename2']
-    Returns: ConfigParserObject if file is present
-             None if file is not present
-    Raises: ConfigParser.ParsingError if file formatting is not correct
-    """
-    tmpCp = ConfigParser.ConfigParser()
-    for fileName in locations:
-        if os.path.isfile(fileName):
-            tmpCp.read(fileName)
-            return tmpCp
-    return None
-
-def getUnitMapping(unit):
-    """
-    Map netdata mapping to grafana type.
-    Input: str: unit
-    Returns: str of mapped grafana unit, if not present in mapping, str(short)
-    """
-    units = {"kilobits/s": "Kbits",
-             "kilobytes/s": "KBs",
-             "% of time working": "percent",
-             "cpu time %": "percent",
-             "percentage": "percent",
-             "KB": "deckbytes",
-             "MB": "decmbytes",
-             "GB": "decgbytes",
-             "seconds": "s",
-             "backlog (ms)": "ms",
-             "operations/s": "ops"}
-    if unit in units:
-        return units[unit]
-    return 'short'
-
-def getDataFromUrl(url):
-    """
-    Get data from specified url
-    Input: str: url
-    Returns: response socket object
-    Raises: Might raise urllib2 exception associated with failing connection
-    """
-    response = urllib2.urlopen(url)
-    return response
-
-def prepareGrafanaTarget(inName, inDict, config):
-    """
-    Prepare Grafana Target
-    Input: str: inName : name of the group metric
-           dict: inDict : group metric config from netdata
-           dict: config : all configuration parameters
-    Returns: list: list of generated targets
-    """
-    refIDs = [chr(i) for i in xrange(ord('A'), ord('Z') + 1)]
-    tmpTargets = []
-    for dimensionKey, dimensionDict in inDict['dimensions'].items():
-        # TODO. Look at grafana doc if we can have more of these dimensions
-        if not refIDs:
-            print 'skip', dimensionKey, inName
-            continue
-        tmpTarget = copy.deepcopy(GRAFANA_TARGET)
-        tmpTarget['alias'] = dimensionDict['name']
-        tmpTarget['refId'] = refIDs[0]
-        refIDs = list(refIDs[1:])
-        valKey = ""
-        if config['dimensionids']:
-            valKey = dimensionKey
-        else:
-            valKey = dimensionDict['name']
-        tmpTarget['measurement'] = "%s.%s.%s.%s" % (config['prefix'], config['section'], inDict['name'], valKey)
-        tmpTargets.append(tmpTarget)
-    return tmpTargets
-
-def prepareGrafanaPanel(inName, inDict, config):
-    """
-    Make grafana Panel
-    Input: str: inName : name of the group metric
-           dict: inDict : group metric config from netdata
-           dict: config : all configuration parameters
-    Returns: list: list of generated panels
-    """
-    panelID = 1
-    tmpPanels = []
-    # First panel is description if there is one...
-    if inName in FIELD_DESC and 'title' in FIELD_DESC[inName] and 'info' in FIELD_DESC[inName]:
-        tmpPanels.append({"content": FIELD_DESC[inName]['info'],
-                          "height": "20px",
-                          "id": panelID,
-                          "links": [],
-                          "mode": "html",
-                          "span": 12,
-                          "title": FIELD_DESC[inName]['title'],
-                          "type": "text"})
-        panelID += 1
-    for panel in inDict:
-        tmpPanel = copy.deepcopy(GRAFANA_PANEL)
-        tmpPanel['title'] = panel['title']
-        tmpPanel['id'] = panelID
-        tmpPanel['datasource'] = config['datasource']
-        panelID += 1
-        unitMapping = getUnitMapping(panel['units'])
-        tmpPanel['yaxes'][0]['format'] = unitMapping
-        tmpPanel['yaxes'][0]['label'] = panel['units']
-        for repKey, repVal in MAPPINGS[panel['chart_type'].upper()].items():
-            tmpPanel[repKey] = repVal
-        tmpTargets = prepareGrafanaTarget(inName, panel, config)
-        for item in tmpTargets:
-            tmpPanel['targets'].append(item)
-        tmpPanels.append(tmpPanel)
-    return tmpPanels
-
-def prepareGrafanaRow(inName, inDict, config):
-    """
-    Make Grafana Row
-    Input: str: inName : name of the group metric
-           dict: inDict : group metric config from netdata
-           dict: config : all configuration parameters
-    Returns: list: list of generated rows
-    """
-    tmpRow = copy.deepcopy(GRAFANA_ROW)
-    try:
-        tmpRow['title'] = FIELD_DESC[inName]['title']
-    except KeyError:
-        tmpRow['title'] = inName.title()
-    tmpPanels = prepareGrafanaPanel(inName, inDict, config)
-    for item in tmpPanels:
-        tmpRow['panels'].append(item)
-    return tmpRow
-
-def prepareDashboard(config):
-    """
-    Prepare dashboard for specific host
-    Input: dict: config : all configuration parameters
-    Returns: None
-    """
-    netdataIn = json.load(getDataFromUrl('%s/api/v1/charts' % config['hostname']))
-    tmpOut = {}
-    if 'charts' in netdataIn.keys():
-        for _chartName, chartDict in netdataIn['charts'].items():
-            tmpRowOut = tmpOut.setdefault(chartDict['type'], [])
-            tmpRowOut.append(chartDict)
-    newDash = copy.deepcopy(GRAFANA_DASHBOARD)
-    newDash['description'] = "Dashboard for %s" % config['hostname']
-    newDash['title'] = config['section']
-    if 'tags' in config:
-        print config
-        newDash['tags'] = config['tags']
-    newLink = copy.deepcopy(GRAFANA_LINKS)
-    newLink['tooltip'] = "Open Real Time Netdata monitoring"
-    newLink['title'] = "Netdata - Real Time Monitoring"
-    newLink['url'] = config['hostname']
-    newDash['links'].append(newLink)
-    # Start with FIELD_DESC keys as important ones.
-    for key in config['order']:
-        if key in tmpOut.keys():
-            newRow = prepareGrafanaRow(key, tmpOut[key], config)
-            newDash['rows'].append(newRow)
-            del tmpOut[key]
-    if not config['skipOthers']:
-        for key in tmpOut.keys():
-            newRow = prepareGrafanaRow(key, tmpOut[key], config)
-            newDash['rows'].append(newRow)
-    with open('%s.json' % config['section'], 'w') as fd:
-        fd.write(json.dumps(newDash, sort_keys=True, indent=2, separators=(',', ': ')))
-    return
-
-
-def getNetdataConfig(hostname):
+def getNetdataConfig(mainConfig, sectionName):
     """
     Get netdata server config and also check backend configuration
-    Input: str: hostname : url with protocol and port
+    Input: Config: mainConfig  : All configuration
+           str     sectionName : Section Name of that specific config
     Returns: boolean: True - success in getting config and all parameters defined correctly.
                       False - Failure in retrieving one or another configuration parameters.
              dict: {} - if boolean return is False, always empty as failed to retrieve.
                    otherwise dictionary of all parsed configuration parameters
     """
     # TODO look at netdata filters, and ignore which are not published to Database
-    try:
-        tmpConf = getDataFromUrl("%s/netdata.conf" % hostname)
-    except urllib2.URLError as ex:
-        print 'Received URLError %s for %s. Ignoring this node check' % (ex, hostname)
-        return False, {}
-    tempfileName = ""
+    hostname = mainConfig.get(sectionName, 'hostname')
     outDict = {}
     with tempfile.NamedTemporaryFile(delete=False) as fd:
-        for line in tmpConf.read().splitlines():
-            fd.write(line.replace('\t', '') + "\n")
-        tempfileName = fd.name
+        try:
+            tmpConf = getDataFromUrl("%s/netdata.conf" % hostname)
+            for line in tmpConf.read().splitlines():
+                fd.write(line.replace('\t', '') + "\n")
+        except urllib2.URLError as ex:
+            print 'Received URLError %s for %s. Checking if config file is present locally' % (ex, hostname)
+            if os.path.isfile("%s.conf" % sectionName):
+                with open("%s.conf" % sectionName, 'r') as fdConf:
+                    for line in fdConf:
+                        fd.write(line.replace('\t', '') + "\n")
+            else:
+                print 'Config file is also not present. Skipping this node %s check' % hostname
+                return False, {}
+    tempfileName = fd.name
     hostConfig = getConfig([tempfileName])
     if not hostConfig.has_section('backend'):
         print 'Hostname %s Netdata server is not configured to publish anything to any backend' % hostname
@@ -256,6 +90,25 @@ def getNetdataConfig(hostname):
         outDict['send names instead of ids'] = 'no'
     return True, outDict
 
+def getValFromConfig(mainConfig, sectionName, optionName, defaultVal=''):
+    """ Get Value from config if present, otherwise return defaultVal """
+    if mainConfig.has_section(sectionName):
+        if mainConfig.has_option(sectionName, optionName) and mainConfig.get(sectionName, optionName):
+            return mainConfig.get(sectionName, optionName)
+    return defaultVal
+
+def checkSkipOthers(mainConfig, sectionName):
+    return bool(getValFromConfig(mainConfig, sectionName, 'skipOthers', False))
+
+def checkOrderConfig(mainConfig, sectionName):
+    return getValFromConfig(mainConfig,
+                            sectionName,
+                            'order',
+                            'system,mem,cpu,disk,net,ipv4,ipv6,netfilter,apps,users,groups,services,tc').split(',')
+
+def getTags(mainConfig, sectionName):
+    return getValFromConfig(mainConfig, sectionName, 'tags', [])
+
 def main():
     """
     Main execution. For all config specified netdata hosts, prepare grafana dashboard template.
@@ -263,35 +116,61 @@ def main():
     Returns: None
     """
     # TODO. Allow to specify configuration location.
+    allConfigs = {"HOSTS": {}}
     mainConfig = getConfig(['netdata-grafana-hosts.conf'])
+    allConfigs['backend'] = mainConfig.get('global', 'backend')
+    allConfigs['grafanaUrl'] = mainConfig.get('global', 'grafanaUrl')
+    if allConfigs['backend'] == 'opentsdb':
+        allConfigs['opentsdb'] = {"datasource": mainConfig.get('opentsdb', 'datasource'),
+                                  "order": checkOrderConfig(mainConfig, 'opentsdb'),
+                                  "skipOthers": checkSkipOthers(mainConfig, 'opentsdb')}
+        allConfigs['opentsdb']['title'] = mainConfig.get('opentsdb', 'title')
+        allConfigs['opentsdb']['description'] = mainConfig.get('opentsdb', 'description')
+        allConfigs['opentsdb']['dimensionids'] = mainConfig.getboolean('opentsdb', 'dimensionids')
+        allConfigs['opentsdb']['prefix'] = mainConfig.get('opentsdb', 'prefix')
+        allConfigs['opentsdb']['tags'] = getTags(mainConfig, 'opentsdb')
+        allConfigs['opentsdb']['customfilters'] = json.loads(mainConfig.get('opentsdb', 'customfilters'))
+        # get customFirstRow and customLastRow
+        allConfigs['opentsdb']['customFirstRow'] = getValFromConfig(mainConfig, 'opentsdb', 'customFirstRow')
+        allConfigs['opentsdb']['customLastRow'] = getValFromConfig(mainConfig, 'opentsdb', 'customLastRow')
     for sectionName in mainConfig.sections():
+        if sectionName in ['global', 'opentsdb']:
+            continue
         # check if mandatory options are in place
         if not(mainConfig.has_option(sectionName, 'hostname') and
                mainConfig.get(sectionName, 'hostname')):
             print 'In section %s hostname is not defined. It is mandatory to define full url' % sectionName
             print '* Skipping this node check.'
             continue
-        elif not(mainConfig.has_option(sectionName, 'datasource') and
-                 mainConfig.get(sectionName, 'datasource')):
-            print 'In section %s hostname is not defined. It is mandatory to define full url' % sectionName
-            print '* Skipping this node check.'
-            continue
-        configSuccess, config = getNetdataConfig(mainConfig.get(sectionName, 'hostname'))
+        if allConfigs['backend'] == 'graphite':
+            if not(mainConfig.has_option(sectionName, 'datasource') and
+                   mainConfig.get(sectionName, 'datasource')):
+                print 'In section %s dataspirce is not defined. It is mandatory to define datasource' % sectionName
+                print '* Skipping this node check.'
+                continue
+        configSuccess, config = getNetdataConfig(mainConfig, sectionName)
         if not configSuccess:
-            continue
-        if mainConfig.has_option(sectionName, 'tags') and mainConfig.get(sectionName, 'tags'):
-            config['tags'] = mainConfig.get(sectionName, 'tags').split(',')
-        config['datasource'] = mainConfig.get(sectionName, 'datasource')
+            config['SKIP_NODE'] = False  # This is not looked in case of graphite. TODO
+        config['tags'] = getTags(mainConfig, allConfigs['backend'])
+        if allConfigs['backend'] == 'graphite':
+            # This is relevant only for graphite
+            config['datasource'] = mainConfig.get(sectionName, 'datasource')
+            config['order'] = checkOrderConfig(mainConfig, sectionName)
+            config['skipOthers'] = checkSkipOthers(mainConfig, sectionName)
         config['hostname'] = mainConfig.get(sectionName, 'hostname')
         config['section'] = sectionName
-        if mainConfig.has_option(sectionName, 'order') and mainConfig.get(sectionName, 'order'):
-            config['order'] = mainConfig.get(sectionName, 'order').split(',')
-        else:
-            config['order'] = ['system', 'mem', 'cpu', 'disk', 'net', 'ipv4', 'ipv6',
-                               'netfilter', 'apps', 'users', 'groups', 'services', 'tc']
-        if mainConfig.has_option(sectionName, 'skipOthers') and mainConfig.get(sectionName, 'skipOthers'):
-            config['skipOthers'] = mainConfig.getboolean(sectionName, 'skipOthers')
-        prepareDashboard(config)
+        # get customFirstRow and customLastRow
+        config['customFirstRow'] = getValFromConfig(mainConfig, sectionName, 'customFirstRow')
+        config['customLastRow'] = getValFromConfig(mainConfig, sectionName, 'customLastRow')
+        allConfigs["HOSTS"][config['hostname']] = config
+    print allConfigs
+    # Now send allConfigs to a specific backend preparator.
+    if allConfigs['backend'] == 'graphite':
+        graphiteDashboard(allConfigs)
+    elif allConfigs['backend'] == 'opentsdb':
+        opentsdbDashboard(allConfigs)
+    else:
+        print 'Unknown backend type... Exiting'
 
 if __name__ == '__main__':
     main()
