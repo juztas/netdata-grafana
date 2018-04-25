@@ -1,0 +1,1656 @@
+[
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "bgColor": null,
+          "clockType": "24 hour",
+          "countdownSettings": {
+            "endCountdownTime": "2017-10-19T08:59:00.000Z",
+            "endText": "00:00:00"
+          },
+          "dateSettings": {
+            "dateFormat": "YYYY-MM-DD",
+            "fontSize": "20px",
+            "fontWeight": "normal",
+            "showDate": true
+          },
+          "height": "300px",
+          "id": 167,
+          "links": [],
+          "mode": "time",
+          "offsetFromUtc": null,
+          "offsetFromUtcMinutes": null,
+          "span": 2,
+          "timeSettings": {
+            "customFormat": "HH:mm:ss",
+            "fontSize": "60px",
+            "fontWeight": "normal"
+          },
+          "title": "Current Time",
+          "type": "grafana-clock-panel"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "decimals": null,
+          "format": "Kbits",
+          "gauge": {
+            "maxValue": 30000000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "hideTimeOverride": true,
+          "id": 166,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "currentTagKey": "",
+              "currentTagValue": "",
+              "disableDownsampling": false,
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "explicitTags": false,
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                }
+              ],
+              "metric": "netdata.system.ipv4.InOctets",
+              "refId": "A",
+              "shouldComputeRate": false,
+              "tags": {}
+            }
+          ],
+          "thresholds": "20000000,25000000,30000000",
+          "timeFrom": "5m",
+          "timeShift": "15s",
+          "title": "Current Received Speed",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "-- Mixed --",
+          "decimals": null,
+          "format": "Kbits",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": -30000000,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "hideTimeOverride": true,
+          "id": 169,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "currentTagKey": "",
+              "datasource": "opentsdb",
+              "disableDownsampling": false,
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "explicitTags": false,
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "metric": "netdata.system.ipv4.OutOctets",
+              "refId": "A",
+              "shouldComputeRate": false
+            }
+          ],
+          "thresholds": "-20000000,-25000000,-30000000",
+          "timeFrom": "5m",
+          "timeShift": "15s",
+          "title": "Current Sent Speed",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "short",
+          "gauge": {
+            "maxValue": 20000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "id": 174,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.ipv4.tcpsock.CurrEstab",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "10000,15000,20000",
+          "title": "Total Connections",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "pps",
+          "gauge": {
+            "maxValue": 2000000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "hideTimeOverride": true,
+          "id": 175,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.ipv4.tcppackets.InSegs",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "1000000,1500000,2000000",
+          "timeFrom": "5m",
+          "timeShift": "10s",
+          "title": "Average Received Packets per second",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "pps",
+          "gauge": {
+            "maxValue": 2000000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "hideTimeOverride": true,
+          "id": 177,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.ipv4.tcppackets.OutSegs",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "1000000,1500000,2000000",
+          "timeFrom": "5m",
+          "timeShift": "10s",
+          "title": "Average Sent Packets per second",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "decimals": null,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300",
+          "hideTimeOverride": true,
+          "id": 168,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "avg",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "sum",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.cpu.iowait",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "20,30,50",
+          "timeFrom": "5m",
+          "timeShift": "10s",
+          "title": "Highest IO Wait",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "max"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "decmbytes",
+          "gauge": {
+            "maxValue": 1000000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "id": 170,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.ram.used",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "700000,900000, 950000",
+          "title": "Memory in Use",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "decmbytes",
+          "gauge": {
+            "maxValue": 1000000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "id": 171,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.swap.used",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "70000,200000, 300000",
+          "title": "Swap in Use",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "percentunit",
+          "gauge": {
+            "maxValue": 3,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "id": 172,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "avg",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.load.load1",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "1,2,3",
+          "title": "Load Average 1 minute",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "percentunit",
+          "gauge": {
+            "maxValue": 3,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "id": 173,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "avg",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.load.load5",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "1,2,3",
+          "title": "Load Average 5 minutes",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "opentsdb",
+          "format": "percentunit",
+          "gauge": {
+            "maxValue": 3,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "300px",
+          "id": 176,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "aggregator": "avg",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.load.load15",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "1,2,3",
+          "title": "Load Average 15 minutes",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "opentsdb",
+          "fill": 5,
+          "height": "600px",
+          "hideTimeOverride": true,
+          "id": 178,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": true,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "aggregator": "sum",
+              "alias": "Received",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "dsType": "influxdb",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "metric": "netdata.system.ipv4.InOctets",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "aggregator": "sum",
+              "alias": "Sent",
+              "currentFilterGroupBy": false,
+              "currentFilterKey": "",
+              "currentFilterType": "literal_or",
+              "currentFilterValue": "",
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "filters": [
+                {
+                  "filter": "$HOSTNAME",
+                  "groupBy": false,
+                  "tagk": "hostname",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$NODETYPE",
+                  "groupBy": false,
+                  "tagk": "nodetype",
+                  "type": "regexp"
+                },
+                {
+                  "filter": "$SITENAME",
+                  "groupBy": false,
+                  "tagk": "sitename",
+                  "type": "regexp"
+                }
+              ],
+              "metric": "netdata.system.ipv4.OutOctets",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": "15s",
+          "title": "Total throughput",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "Kbits",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    }]
